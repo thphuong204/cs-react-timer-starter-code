@@ -1,37 +1,31 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 
 let intervalId;
 
 const useTimer = (ini = 0) => {
   const [time, setTime] = useState(0);
-  const active = {
-    current: {
-      disabled: false
-    }
-  };
 
-  const startTimer = () => {
+  const startTimer = (btnRef) => {
     intervalId = setInterval(() => {
       setTime((prevtime) => prevtime + 1)
     }, 1000);
     console.log('refInterval after startTimer', intervalId);
-    active.current.disabled = true;
+    btnRef.current.setAttribute("disabled", true);
   };
-  const stopTimer = () => {
+  const stopTimer = (btnRef) => {
     console.log('refInterval at stopTimer', intervalId)
     if (intervalId) {
       clearInterval(intervalId)
     }
+    btnRef.current.setAttribute("disabled", false);
   };
   const resetTimer = () => {
     console.log('refInterval before resetTimer', intervalId)
     setTime(0);
     stopTimer();
     intervalId = null;
-
-    active.current.disabled = false;
   };
 
-  return { time, startTimer, stopTimer, resetTimer, active };
+  return { time, startTimer, stopTimer, resetTimer };
 };
 export default useTimer;
