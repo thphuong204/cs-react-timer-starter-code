@@ -1,9 +1,10 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { formatTime } from "./formatTime";
 import useTimer from "./useTimer";
 
 function App() {
   const { time, startTimer, stopTimer, resetTimer } = useTimer(0);
+  const [activeStatus, setActiveStatus] = useState(false);
 
   let btnRef = useRef();
 
@@ -15,17 +16,27 @@ function App() {
           <p>{formatTime(time)} </p>
         </div>
         <div className="button__wrapper">
-          <button className="button" onClick={() => stopTimer(btnRef)}>
+          <button className="button" onClick={() => {
+            stopTimer(btnRef);
+            setActiveStatus(false);
+          }}>
             Stop
           </button>
           <button
             className="button"
             ref={btnRef}
-            onClick={() => startTimer(btnRef)}
+            disabled={activeStatus}
+            onClick={() => {
+              startTimer(btnRef);
+              setActiveStatus(true);
+            }}
           >
             Start
           </button>
-          <button className="button" onClick={() => resetTimer(btnRef)}>
+          <button className="button" onClick={() => {
+            resetTimer(btnRef);
+            setActiveStatus(false);
+          }}>
             Reset
           </button>
         </div>

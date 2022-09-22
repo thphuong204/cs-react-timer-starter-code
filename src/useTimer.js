@@ -10,14 +10,14 @@ const useTimer = (ini = 0) => {
       setTime((prevtime) => prevtime + 1)
     }, 1000);
     console.log('refInterval after startTimer', intervalId);
-    btnRef.current.setAttribute("disabled", true);
+    // btnRef.current.setAttribute("disabled", true);
   };
   const stopTimer = (btnRef) => {
     console.log('refInterval at stopTimer', intervalId)
     if (intervalId) {
       clearInterval(intervalId)
     }
-    btnRef.current.setAttribute("disabled", false);
+    // btnRef.current.setAttribute("disabled", false);
   };
   const resetTimer = () => {
     console.log('refInterval before resetTimer', intervalId)
